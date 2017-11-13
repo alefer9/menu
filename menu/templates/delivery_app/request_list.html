@@ -1,0 +1,41 @@
+{% extends "base/base.html" %}
+{% block content %}
+
+    <h1>List of Request</h1>
+
+    <div class="table-responsive">
+		<table class="table table-hover">
+			{% if object_list %}
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>customizations</th>
+						<th>version</th>
+						<th>menu</th>
+						<th>user</th>
+					</tr>
+				</thead>				
+				<tbody>
+					{% for request in object_list %}
+						<tr>
+							<td>{{request.id}}</td>
+							<td>{{request.customizations}}</td>
+							<td>{{ request.version}}</td>
+							<td>{{ request.menu.description}}</td>
+							<td>{{ request.user}}</td>
+							<td>
+								<a class="btn btn-warning" href="{% url 'request_update' request.id  %}">Editar</a>
+								
+							</td>
+					
+						</tr>
+					{% endfor %}
+				</tbody>
+			{% else %}
+				<h3>No records...</h3>
+			{% endif %}
+	  </table>
+	</div> 
+
+	<a class="btn btn-danger" href="{% url 'admin_inicio' %}">Back</a>
+{% endblock %}

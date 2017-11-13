@@ -1,0 +1,46 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+
+    <h1>List of menu</h1>
+	{% if message %}
+		<div class="alert alert-success">
+			<strong>Success!</strong> the email has sending successful.
+		</div>
+	{% endif %}
+    <div class="table-responsive">
+		<table class="table table-hover">
+			{% if object_list %}
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Description</th>
+						<th>Options</th>
+						<th>Actions</th>
+					</tr>
+				</thead>				
+				<tbody>
+					{% for menu in object_list %}
+						<tr>
+							<td>{{menu.id}}</td>
+							<td>{{menu.description}}</td>
+							<td>{{ menu.options.all|join:"."}}
+</td>
+							<td>
+								<a class="btn btn-warning" href="{% url 'menu_update' menu.id  %}">Editar</a>
+								<a class="btn btn-primary" href="{% url 'send_menu' menu.id %}">Send Menu</a>
+								
+							</td>
+					
+						</tr>
+					{% endfor %}
+				</tbody>
+			{% else %}
+				<h3>No records...</h3>
+			{% endif %}
+	  </table>
+	</div> 
+	
+	<a class="btn btn-danger" href="{% url 'admin_inicio' %}">Back</a>
+
+{% endblock %}
