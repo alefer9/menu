@@ -1,12 +1,10 @@
 from .models import Menu, Options, Request_menu
 from django.forms import ModelForm
 from django import forms
-
 import datetime
 
-
+# Menu form with all options and widgets
 class MenuForm (ModelForm):
-
 	class Meta:
 		model= Menu
 	
@@ -25,8 +23,8 @@ class MenuForm (ModelForm):
 				 'options': forms.CheckboxSelectMultiple(),
 				 }
 
+# Request form with all options and widgets
 class RequestForm(ModelForm):
-
 	class Meta:
 		model= Request_menu
 	
@@ -48,9 +46,8 @@ class RequestForm(ModelForm):
 	
 				 }
 
-
+# Options form with all widgets
 class OptionsForm (ModelForm):
-
 	class Meta:
 		model= Options
 	
