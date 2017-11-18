@@ -1,65 +1,70 @@
-from .models import Menu, Options, Request_menu
+
+from .models import Menu, Options, Request_menu, User
+
+# Django
 from django.forms import ModelForm
 from django import forms
+
+# standard library
 import datetime
 
-# Menu form with all options and widgets
-class MenuForm (ModelForm):
+class UserForm (ModelForm):
 	class Meta:
+		model= User	
+		fields= ['username',
+				 'password',			
+				]
+		labels= {'username': 'Username',
+				 'password': 'Password',
+				 }
+		widgets={'username': forms.TextInput(attrs={'class':'form-control'}),
+				 'password': forms.TextInput(attrs={'class':'form-control'}),
+				 }
+
+
+
+class MenuForm (ModelForm): # Menu form with all options and widgets
+	class Meta: 
 		model= Menu
-	
-		fields= [
-			'description',
-			'fecha',
-			'options',
-			
-			]
+		fields= ['description',
+				 'date',
+				 'options',
+				]
 		labels= {'description': 'description',
-				 'fecha': 'fecha',
+				 'date': 'Date',
 				 'options': 'Options',
 				 }
 		widgets={'description': forms.TextInput(attrs={'class':'form-control'}),
-				 'fecha': forms.DateInput(attrs={'class':'form-control'}),
+				 'date': forms.DateInput(attrs={'class':'form-control'}),
 				 'options': forms.CheckboxSelectMultiple(),
 				 }
 
-# Request form with all options and widgets
-class RequestForm(ModelForm):
+
+class RequestForm(ModelForm): # Request form with all options and widgets
 	class Meta:
 		model= Request_menu
-	
-		fields= [
-			'customizations',
-			'version',
-			'menu',
-			'user',
-			]
+		exclude =["user",
+				  "menu",
+				  "option",
+				]
 		labels= {'customizations': 'Customizations',
-				 'version': 'Version',
-				 'menu': 'Menu',
-				 'user': 'User'
-				 }
+				 'version': 'Version'
+				}
 		widgets={'customizations': forms.TextInput(attrs={'class':'form-control'}),
 				 'version': forms.Select(attrs={'class':'form-control'}),
 				 'menu': forms.Select(attrs={'class':'form-control'}),
-				 'user':forms.Select(attrs={'class':'form-control'})
-	
-				 }
+				}
 
-# Options form with all widgets
-class OptionsForm (ModelForm):
+
+class OptionsForm (ModelForm): # Options form with all widgets
 	class Meta:
 		model= Options
 	
-		fields= [
-			'description',
-			
-			]
+		fields= ['description',
+				]
 		labels= {'description': 'description',
-				 
-				 }
+				}
 		widgets={'description': forms.TextInput(attrs={'class':'form-control'}),
-	
-				 }
+				}
 
 	

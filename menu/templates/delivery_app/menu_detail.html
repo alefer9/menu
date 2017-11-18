@@ -1,0 +1,11 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+	<h1>Menu view</h1>
+	<h4>Description: </h4>
+	{% for menu_option in object.options.all %}
+	    <p>- {{menu_option.description}}</p>
+	{% endfor %}
+
+	<a class="btn btn-primary" href="{% url 'request_create' object.id %}">Create request</a>
+{% endblock %}

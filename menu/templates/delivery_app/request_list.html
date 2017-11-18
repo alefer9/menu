@@ -1,6 +1,5 @@
 {% extends "base/base.html" %}
 {% block content %}
-
     <h1>List of Request</h1>
 
     <div class="table-responsive">
@@ -9,24 +8,29 @@
 				<thead>
 					<tr>
 						<th>#</th>
-						<th>customizations</th>
-						<th>version</th>
-						<th>menu</th>
-						<th>user</th>
+						<th>Customizations</th>
+						<th>Option</th>
+						<th>Version</th>
+						<th>Menu</th>
+						<th>User</th>
 					</tr>
 				</thead>				
 				<tbody>
 					{% for request in object_list %}
 						<tr>
-							<td>{{request.id}}</td>
-							<td>{{request.customizations}}</td>
-							<td>{{ request.version}}</td>
-							<td>{{ request.menu.description}}</td>
-							<td>{{ request.user}}</td>
-							<td>
-								<a class="btn btn-warning" href="{% url 'request_update' request.id  %}">Editar</a>
-								
-							</td>
+							<td>{{ request.id }}</td>
+							<td>{{ request.customizations }}</td>
+							<td>{{ request.option.description }}</td>
+							<td>{{ request.version }}</td>
+							<td>{{ request.menu.description }}</td>
+							<td>{{ request.user }}</td>
+							{% if user.is_superuser %}
+								<td>
+									<a class="btn btn-warning" href="{% url 'request_update' request.id  %}">Editar</a>
+									
+								</td>
+							{% endif %}
+							
 					
 						</tr>
 					{% endfor %}

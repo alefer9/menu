@@ -49,9 +49,9 @@ INSTALLED_APPS = [
     'kombu.transport.django',
     #My application
     'delivery_app',
+    'django_slack',
 ]
-#CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend'
-# BROKER_URL = 'amqp://localhost//'
+
 BROKER_URL = 'django://'
 CELERYD_TASK_TIME_LIMIT = 600
 
@@ -72,12 +72,6 @@ EMAIL_HOST_USER = 'alejandraff9@gmail.com'
 EMAIL_HOST_PASSWORD = '199471411'
 EMAIL_USE_TLS = True
 
-# REDIS related settings 
-# REDIS_HOST = 'localhost'
-# REDIS_PORT = '6379'
-# BROKER_URL = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
-# BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600} 
-# CELERY_RESULT_BACKEND = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
 
 ROOT_URLCONF = 'delivery.urls'
 
@@ -148,3 +142,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+LOGIN_REDIRECT_URL = 'delivery_app/menu'

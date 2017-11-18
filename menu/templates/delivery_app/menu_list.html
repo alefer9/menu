@@ -1,41 +1,45 @@
 {% extends 'base/base.html' %}
 
 {% block content %}
-
-    <h1>List of menu</h1>
-    <div class="table-responsive">
-		<table class="table table-hover">
-			{% if object_list %}
-				<thead>
-					<tr>
-						<th>#</th>
-						<th>Description</th>
-						<th>Options</th>
-						<th>Actions</th>
-					</tr>
-				</thead>				
-				<tbody>
-					{% for menu in object_list %}
+	{% if user.is_superuser %}
+	    <h1>List of menu</h1>
+	    <div class="table-responsive">
+			<table class="table table-hover">
+				{% if object_list %}
+					<thead>
 						<tr>
-							<td>{{menu.id}}</td>
-							<td>{{menu.description}}</td>
-							<td>{{ menu.options.all|join:"."}}
-</td>
-							<td>
-								<a class="btn btn-warning" href="{% url 'menu_update' menu.id  %}">Editar</a>
-								<a class="btn btn-primary" href="{% url 'send_menu' menu.id %}">Send Menu</a>
-								
-							</td>
-					
+							<th>#</th>
+							<th>Description</th>
+							<th>Options</th>
+							<th>Actions</th>
 						</tr>
-					{% endfor %}
-				</tbody>
-			{% else %}
-				<h3>No records...</h3>
-			{% endif %}
-	  </table>
-	</div> 
-	
-	<a class="btn btn-danger" href="{% url 'admin_inicio' %}">Back</a>
-
+					</thead>				
+					<tbody>
+						{% for menu in object_list %}
+							<tr>
+								<td>{{menu.id}}</td>
+								<td>{{menu.description}}</td>
+								<td>{{ menu.options.all|join:" / "}}
+	</td>
+								<td>
+									<a class="btn btn-primary" href="{% url 'menu_detail' menu.id  %}">View</a>
+									<a class="btn btn-warning" href="{% url 'menu_update' menu.id  %}">Edit</a>
+									{% if user.is_superuser %} 
+									<a class="btn btn-success" href="{% url 'send_menu' menu.id %}">Send Menu</a>
+									{% endif %}
+								</td>
+						
+							</tr>
+						{% endfor %}
+					</tbody>
+				{% else %}
+					<h3>No records...</h3>
+				{% endif %}
+		  </table>
+		</div> 
+		
+		<a class="btn btn-danger" href="{% url 'admin_inicio' %}">Back</a>
+	{% else %}
+	    <p><a href="{% url 'login' %}">Login</a></p>
+	{% endif %}
 {% endblock %}
